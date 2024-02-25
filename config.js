@@ -9,16 +9,16 @@ function convertToBool(text, fault = 'true',fault2='on') {
     return ((text === fault) || (text === fault2));
 }
 const settingsMenu = [
-    {title: "PM antispam block", env_var: "PM_ANTISPAM"},
-    {title: "Auto read all messages", env_var: "READ_MESSAGES"},
-    {title: "Auto read command messages", env_var: "READ_COMMAND"},
-    {title: "Auto read status updates", env_var: "AUTO_READ_STATUS"},
-    {title: "Admin sudo acces mode (group commands only)", env_var: "ADMIN_ACCESS"},
-    {title: "With & without handler mode", env_var: "MULTI_HANDLERS"},
-    {title: "Auto reject calls", env_var: "REJECT_CALLS"},
-    {title: "Always online", env_var: "ALWAYS_ONLINE"},
-    {title: "PM Auto blocker", env_var: "PMB_VAR"},
-    {title: "Disable bot in PM", env_var: "DIS_PM"}
+    {title: "Bloqueo antispam de PM", env_var: "PM_ANTISPAM"},
+    {title: "Auto lectura de todos los mensajes", env_var: "READ_MESSAGES"},
+    {title: "Auto lectura de mensajes de comando", env_var: "READ_COMMAND"},
+    {title: "Auto leer actualizaciones de estado", env_var: "AUTO_READ_STATUS"},
+    {title: "Modo de acceso Admin sudo (sólo comandos de grupo)", env_var: "ADMIN_ACCESS"},
+    {title: "Con y sin modo manipulador", env_var: "MULTI_HANDLERS"},
+    {title: "Rechazar llamadas automáticamente", env_var: "REJECT_CALLS"},
+    {title: "Siempre en línea", env_var: "ALWAYS_ONLINE"},
+    {title: "Bloqueador automático PM", env_var: "PMB_VAR"},
+    {title: "Desactivar el bot en PM", env_var: "DIS_PM"}
   ]
 DATABASE_URL = process.env.DATABASE_URL === undefined ? './bot.db' : process.env.DATABASE_URL;
 DEBUG = process.env.DEBUG === undefined ? false : convertToBool(process.env.DEBUG);
