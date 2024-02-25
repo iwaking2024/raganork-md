@@ -7,12 +7,12 @@ const {
 Module({
     pattern: 'onwa ?(.*)',
     fromMe: true,
-    desc: 'Lists numbers registered on wa, not registered etc.',
+    desc: 'Enumera los números registrados en WhatsApp, no registrados, etc.',
     use: 'whatsapp',
     usage: 'onwa +48888888xxx'
 }, (async (message, match) => {
     if (!match[1]) return await message.sendReply("_Need number!_");
-    let x = await message.send("_Processing.._");
+    let x = await message.send("Procesando...");
     await processOnwa(message,match[1])
-    return await message.edit('_Task complete!_',message.jid,x.key)
+    return await message.edit('Tarea completada ✅',message.jid,x.key)
 }));
