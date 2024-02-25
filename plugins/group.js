@@ -98,7 +98,7 @@ Module({
     pattern: 'add ?(.*)',
     fromMe: true,
     desc: Lang.ADD_DESC,
-    warn:"You number might get banned, use with caution",
+    warn:"Tu número puede ser bloqueado, úsalo con precaución.",
     use: 'group'
 }, (async (message, match) => {
     if (!message.isGroup) return await message.sendReply(Lang.GROUP_COMMAND)
@@ -351,7 +351,7 @@ Module({
     pattern: 'glock ?(.*)',
     fromMe: false,
     use: 'group',
-    desc: "Change group settings to allow only admins to edit group's info!"
+    desc: "Cambia la configuración del grupo para que sólo los administradores puedan editar la información del grupo."
 }, (async (message, match) => {
     if (!message.isGroup) return await message.sendReply(Lang.GROUP_COMMAND)
     let adminAccesValidated = ADMIN_ACCESS ? await isAdmin(message,message.sender) : false;
@@ -363,7 +363,7 @@ Module({
     pattern: 'gunlock ?(.*)',
     fromMe: false,
     use: 'group',
-    desc: "Change group settings to allow everyone to edit group's info!"
+    desc: "Cambia la configuración del grupo para que todo el mundo pueda editar la información del grupo."
 }, (async (message, match) => {
     if (!message.isGroup) return await message.sendReply(Lang.GROUP_COMMAND)
     let adminAccesValidated = ADMIN_ACCESS ? await isAdmin(message,message.sender) : false;
@@ -375,7 +375,7 @@ Module({
     pattern: 'gname ?(.*)',
     fromMe: false,
     use: 'group',
-    desc: "Change group subject"
+    desc: "Cambiar el tema del grupo"
 }, (async (message, match) => {
     if (!message.isGroup) return await message.sendReply(Lang.GROUP_COMMAND)
     let adminAccesValidated = ADMIN_ACCESS ? await isAdmin(message,message.sender) : false;
@@ -405,7 +405,7 @@ Module({
     pattern: 'common ?(.*)',
     fromMe: false,
     use: 'group',
-    desc: "Get common participants in two groups, and kick using .common kick jid"
+    desc: "Obtener participantes comunes en dos grupos, y kick usando .common kick jid"
 }, (async (message, match) => {
     let adminAccesValidated = ADMIN_ACCESS ? await isAdmin(message,message.sender) : false;
     if (message.fromOwner || adminAccesValidated) {
