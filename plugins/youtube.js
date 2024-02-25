@@ -286,7 +286,7 @@ Module({
 Module({
   pattern: 'yts ?(.*)',
   fromMe: fm,
-  desc: "Select and download songs from yt (list)",
+  desc: "Seleccionar y descargar canciones de youtube (lista)",
   use: 'search'
 }, (async (message, match) => {
   if (!match[1]) return message.sendReply("*Need words*")
@@ -304,7 +304,7 @@ return await message.client.sendMessage(message.jid,Message)
   }
   let sr = await searchYT(match[1]);
   sr = sr.videos.splice(0,20);
-  if (sr.length < 1) return await message.sendReply("*No results found!*");
+  if (sr.length < 1) return await message.sendReply("*No hay resultados.*");
   var list = `_*Search results for ${match[1]}:*_\n\n`
   var _i = 0;
   for (var i in sr){
@@ -355,7 +355,7 @@ async function parseReply(reply,no_){
   var sr = await searchYT(query);
   sr = sr.videos.splice(0,20)
   sr = sr.filter(x=>x.title?.text == (query))[0]
-  if (!sr?.id) throw "_No results found!_"
+  if (!sr?.id) throw "No hay resultados."
   // let link = YT_BASEURL.format(sr?.id)
   return sr?.id         
   }
