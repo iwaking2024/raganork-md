@@ -91,7 +91,7 @@ async function sendButton(buttons,text,footer,message){
             Config.HEROKU.APP_NAME = app_name
             process.env.HEROKU_APP_NAME = app_name
             baseURI = '/apps/' + app_name;
-            if (message) await message.sendReply(`_You provided an incorrect heroku app name, and I have corrected your app name to "${app_name}"_\n\n_Please retry this command after restart!_`)    
+            if (message) await message.sendReply(`_Proporcionó un nombre de aplicación heroku incorrecto y he corregido el nombre de su aplicación para "${app_name}"_\n\n_¡Vuelva a intentar este comando después de reiniciar!_`)    
             Config.HEROKU.APP_NAME = app_name
                 return await setVar("HEROKU_APP_NAME",app_name,message)
             }
@@ -101,7 +101,7 @@ async function sendButton(buttons,text,footer,message){
         value = value.trim()
         let setvarAction = isHeroku ? "restarting" : isVPS ? "rebooting" : "redeploying";
         var set_ = `_Successfully set ${key} to ${value}, {}.._`;
-        set_ = key == "ANTI_BOT" ? `AntiBot activated, bots will be automatically kicked, {}` : key == "ANTI_SPAM" ? `AntiSpam activated, spammers will be automatically kicked, {}` :key == "CHATBOT" ? `AI Chatbot turned ${value}, {}` : key == "MODE" ? `Mode switched to ${value}, {}`:set_;
+        set_ = key == "ANTI_BOT" ? `AntiBot activado, los BOT serán expulsados ​​automáticamente. {}` : key == "ANTI_SPAM" ? `AntiSpam activado, los spammers serán expulsados ​​automáticamente. {}` :key == "CHATBOT" ? `AI Chatbot turned ${value}, {}` : key == "MODE" ? `Mode switched to ${value}, {}`:set_;
         set_ = set_.format(setvarAction)
         let m = message;
         if (isHeroku) {
@@ -142,7 +142,7 @@ fs.writeFileSync('./config.env', lines.join('\n'));
         }
         process.exit(0)    
     } catch(e){
-        if (message) return await m.sendReply("_Are you a VPS user? Check out wiki for more._\n"+e.message);
+        if (message) return await m.sendReply("_¿Eres usuario de VPS? Consulte la wiki para obtener más información.._\n"+e.message);
         }
         } 
         if (__dirname.startsWith("/rgnk")) {
@@ -345,11 +345,11 @@ fs.writeFileSync('./config.env', lines.join('\n'));
     Module({
         pattern: 'settings ?(.*)',
         fromMe: true,
-        desc: "Bot settings to enable extra options related to WhatsApp bot functionality.",
+        desc: "Configuración del bot para habilitar opciones adicionales relacionadas con la funcionalidad del bot de WhatsApp.",
         use: 'owner'
     }, (async (message, match) => {
             let configs = settingsMenu
-        let msgToBeSent = "_*Settings configuration menu*_\n\n"+configs.map(e=>configs.indexOf(e)+1+'. _*'+e.title+'*_').join('\n')+'\n\n_Reply the number to continue_'
+        let msgToBeSent = "_*Settings configuration menu*_\n\n"+configs.map(e=>configs.indexOf(e)+1+'. _*'+e.title+'*_').join('\n')+'\n\n_Responde el número para continuar_'
         return await message.sendReply(msgToBeSent)
         }));
     Module({
@@ -462,7 +462,7 @@ const oldSudo = config.SUDO?.split(",")
     Module({
         pattern: 'antispam ?(.*)',
         fromMe: false,
-        desc: "Detects spam messages and kicks user.",
+        desc: "Detecta mensajes de spam y patea al usuario.",
         use: 'group'
     }, (async (message, match) => {
         let adminAccesValidated = ADMIN_ACCESS ? await isAdmin(message,message.sender) : false;
@@ -485,7 +485,7 @@ const oldSudo = config.SUDO?.split(",")
         var {subject} = await message.client.groupMetadata(message.jid)
         return await message.sendReply(`_Anti spam menu of ${subject}_`+"\n\n_Antispam is currently turned *"+status+"*_\n\n_Use .antispam on/off_")
         }
-        await message.sendReply(match[1] === "on" ? "_Antispam activated!_" : "_Antispam turned off!_");
+        await message.sendReply(match[1] === "on" ? "_¡Antispam activado!_" : "_¡Antispam desactivado!_");
     }}));
     Module({
         pattern: 'pdm ?(.*)',
@@ -512,12 +512,12 @@ const oldSudo = config.SUDO?.split(",")
         var {subject} = await message.client.groupMetadata(message.jid)
         return await message.sendReply(`_Promote|demote alert message menu of ${subject}_`+"\n\n_PDM alert is currently turned *"+status+"*_\n\n_Use .pdm on/off_")
         }
-        await message.sendReply(match[1] === "on" ? "_Pdm activated!_" : "_Pdm turned off!_");
+        await message.sendReply(match[1] === "on" ? "_Pdm activado!_" : "_Pdm desactivado!_");
     }}));
     Module({
         pattern: 'antidemote ?(.*)',
         fromMe: true,
-        desc: "Detects demote and automatically promotes demoted one and demotes person who demoted.",
+        desc: "Detecta la degradación y promueve automáticamente al degradado y degrada a la persona que degradó.",
         use: 'group'
     }, (async (message, match) => {
         match[1]=match[1]?match[1].toLowerCase():""
@@ -537,12 +537,12 @@ const oldSudo = config.SUDO?.split(",")
         var {subject} = await message.client.groupMetadata(message.jid)
         return await message.sendReply(`_Anti demote menu of ${subject}_`+"\n\n_This feature is currently turned *"+status+"*_\n\n_Use .antidemote on/off_")
         }
-        await message.sendReply(match[1] === "on" ? "_Antidemote activated!_" : "_Antidemote turned off!_");
+        await message.sendReply(match[1] === "on" ? "¡Antidemote activado!" : "¡Antidemote apagado!");
     }));
     Module({
         pattern: 'antipromote ?(.*)',
         fromMe: true,
-        desc: "Detects promote and automatically demotes promoted one and demotes person who promoted.",
+        desc: "Detecta los ascensos y automáticamente degrada al ascendido y a la persona que ascendió.",
         use: 'group'
     }, (async (message, match) => {
         match[1]=match[1]?match[1].toLowerCase():""
@@ -562,7 +562,7 @@ const oldSudo = config.SUDO?.split(",")
         var {subject} = await message.client.groupMetadata(message.jid)
         return await message.sendReply(`_Anti promote menu of ${subject}_`+"\n\n_This feature is currently turned *"+status+"*_\n\n_Use .antipromote on/off_")
         }
-        await message.sendReply(match[1] === "on" ? "_Antipromote activated!_" : "_Antipromote turned off!_");
+        await message.sendReply(match[1] === "on" ? "_Antipromote activado!_" : "_Antipromote desactivado!_");
     }));
     Module({
         pattern: 'antilink ?(.*)',
@@ -586,7 +586,7 @@ const oldSudo = config.SUDO?.split(",")
                 antilinkWarn.push(message.jid)
                 await setVar("ANTILINK_WARN",antilinkWarn.join(','),false)
                     }
-                    return await message.sendReply(`_Antilink warn has been activated in this group!_`); 
+                    return await message.sendReply(`Se ha activado el aviso de enlace en este grupo.`); 
                 }
             if (match[1].endsWith("off")) {
             if (!(await isAdmin(message))) return await message.sendReply("_I'm not an admin!_")
@@ -594,7 +594,7 @@ const oldSudo = config.SUDO?.split(",")
                 await message.sendReply(`_Antilink warn deactivated!_`)
                 await setVar("ANTILINK_WARN",antilinkWarn.filter(x=>x!=message.jid).join(',')||"null",false)
                 }
-                    return await message.sendReply(`_Antilink warn de-activated!_`); 
+                    return await message.sendReply(`_Antilink advierte desactivado!_`); 
                 }
             
             } 
@@ -610,12 +610,12 @@ const oldSudo = config.SUDO?.split(",")
         var {subject} = await message.client.groupMetadata(message.jid)
         return await message.sendReply(`_Antilink menu of ${subject}_`+"\n\n_Antilink is currently turned *"+status+"*_\n\n_Eg: .antilink on/off_\n_.antilink warn on/off_\n\n_Use `setvar ALLOWED_LINKS:fb.com,google.com` to allow specific links_")
         }
-        await message.sendReply(match[1] === "on" ? "_Antilink activated!_" : "_Antilink turned off!_");
+        await message.sendReply(match[1] === "on" ? "_Antilink activado!_" : "_Antilink desactivado!_");
    }}));
     Module({
         pattern: 'antiword ?(.*)',
         fromMe: false,
-        desc: "Activates antiword, kicks if user sends not allowed words",
+        desc: "Activa antipalabra, patea si el usuario envía palabras no permitidas",
         use: 'group'
     }, (async (message, match) => {
         let adminAccesValidated = ADMIN_ACCESS ? await isAdmin(message,message.sender) : false;
@@ -634,7 +634,7 @@ const oldSudo = config.SUDO?.split(",")
                 antiwordWarn.push(message.jid)
                 await setVar("ANTIWORD_WARN",antiwordWarn.join(','),false)
                     }
-                    return await message.sendReply(`_Antiword warn has been activated in this group!_`); 
+                    return await message.sendReply(`_¡Se ha activado la advertencia antipalabras en este grupo!_`); 
                 }
             if (match[1].endsWith("off")) {
             if (!(await isAdmin(message))) return await message.sendReply("_I'm not an admin!_")
@@ -657,7 +657,7 @@ const oldSudo = config.SUDO?.split(",")
         var {subject} = await message.client.groupMetadata(message.jid)
         return await message.sendReply(`_Antiword menu of ${subject}_`+"\n\n_Antiword is currently turned *"+status+"*_\n\n_Eg: .antiword on/off_\n_.antiword warn on/off_\n\n_Use `setvar ANTI_WORDS:fuck,nigga` to block custom words or set `ANTI_WORDS:auto` to auto detect bad words (It's already enabled by default!)_")
         }
-        await message.sendReply(match[1] === "on" ? "_Antiword activated!_" : "_Antiword turned off!_");
+        await message.sendReply(match[1] === "on" ? "_Antiword activado_" : "_Antiword desactivado_");
    }}));
     Module({
         on: 'text',
