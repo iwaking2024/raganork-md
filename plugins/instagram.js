@@ -32,10 +32,10 @@ const {
 const Config = require('../config');
 const s = require('../config');
 var need = "*_Need instagram link!_*";
-var downloading = "_*Downloading*_";
-var need_acc = "*_Need an instagram username!_*";
-var fail = "*_Download failed! Check your link and try again_*";
-var need_acc_s = "_Need an instagram username or link!_";
+var downloading = "_*Descargando*_";
+var need_acc = "*¡Necesito un nombre de usuario de Instagram!*";
+var fail = "*Fallo en la descarga Compruebe su enlace e inténtelo de nuevo_*";
+var need_acc_s = "_¡Necesita un nombre de usuario o enlace de Instagram!_";
 let sourav = setting.MODE == 'public' ? false : true
 let hnd = setting.HANDLERS !== 'false'? setting.HANDLERS.split("")[0]:"";
 function BypassCertificateCheck(){
@@ -63,7 +63,7 @@ Module({
     var getid = /(?:https?:\/\/)?(?:www\.)?(?:instagram\.com(?:\/.+?)?\/(p|s|reel|tv)\/)([\w-]+)(?:\/)?(\?.*)?$/
     var url = getid.exec(q)
     if (url != null) {
-        try { var res = await downloadGram(url[0]) } catch { return await msg.sendReply("_Something went wrong, Please try again!_") }
+        try { var res = await downloadGram(url[0]) } catch { return await msg.sendReply("Algo salió mal, por favor inténtelo de nuevo.") }
         if (res == false) return await msg.sendReply("*Download failed*");
         var quoted = msg.reply_message ? msg.quoted : msg.data
         for (var i in res) {
@@ -76,7 +76,7 @@ Module({
 Module({
     pattern: 'fb ?(.*)',
     fromMe: sourav,
-    desc: 'Facebook video downloader',
+    desc: 'Descargador de vídeos de Facebook',
     usage: 'fb link or reply to a link',
     use: 'download'
 }, (async (msg, query) => {
@@ -86,7 +86,7 @@ Module({
      if (/\bhttps?:\/\/\S+/gi.test(q)) q = q.match(/\bhttps?:\/\/\S+/gi)[0]
      if (!q) return await msg.sendReply("*Need Facebook link*")
      var res = await fb(q);
-     let sent_msg = await msg.sendReply('_*Hold on, downloading will take some time..*_')
+     let sent_msg = await msg.sendReply('_*Espera, la descarga tomará algún tiempo...*_')
     const end = new Date().getTime()
     await msg.sendReply({url: res.url},"video")
     return await msg.edit('*_Download complete!_*',msg.jid,sent_msg.key)
@@ -94,7 +94,7 @@ Module({
 Module({
     pattern: 'ig ?(.*)',
     fromMe: sourav,
-    desc: 'Gets account info from instagram',
+    desc: 'Obtiene información de la cuenta de Instagram',
     usage: 'ig username',
     use: 'search'
 }, (async (message, match) => {
@@ -116,7 +116,7 @@ Module({
 Module({
     pattern: 'story ?(.*)',
     fromMe: sourav,
-    desc: 'Instagram stories downloader',
+    desc: 'Descargador de historias de Instagram',
     usage: '.story username or link',
     use: 'download'
 }, (async (msg, query) => {
@@ -125,8 +125,8 @@ Module({
     if (user && user.includes("/reel/") || user.includes("/tv/") || user.includes("/p/")) return;
     if (!user) return await msg.sendReply(need_acc_s);
     user = !/\bhttps?:\/\/\S+/gi.test(user) ? `https://instagram.com/stories/${user}/` : user.match(/\bhttps?:\/\/\S+/gi)[0]
-     try { var res = await downloadGram(user) } catch {return await msg.sendReply("*_Sorry, server error_*")}
-    if (!res) return await msg.sendReply("*_User has no stories!_*")
+     try { var res = await downloadGram(user) } catch {return await msg.sendReply("*Lo siento, error del servidor*")}
+    if (!res) return await msg.sendReply("*_¡El usuario no tiene historias!_*")
     var StoryData = [];
     if (res.length<3){
     for (var i in res){
@@ -142,7 +142,7 @@ Module({
   })
   }
   const sections = [{
-      title: "Click and send to download.",
+      title: "Haz click y envía para descargar.",
       rows: StoryData
   }];
   const listMessage = {
@@ -164,7 +164,7 @@ Module({
 }, (async (msg, query) => {
     var user = query[1] !== '' ? query[1] : msg.reply_message.text;
     if (user === 'g') return;
-    if (!user) return await msg.sendReply("*Need text or pinterest url*");
+    if (!user) return await msg.sendReply("*Necesita texto o url de pinterest*");
     if (/\bhttps?:\/\/\S+/gi.test(user)) {
         user = user.match(/\bhttps?:\/\/\S+/gi)[0]
     try { var res = await pin(user) } catch {return await msg.sendReply("*Server error*")}
@@ -191,13 +191,13 @@ Module({
     var user = query[1] !== '' ? query[1] : msg.reply_message.text;
     if (!user || user === 'g' || user.startsWith('terest')) return;
     //if (/\bhttps?:\/\/\S+/gi.test(user)) {
-    await msg.sendReply("_Use .pinterest command for downloading content from this query!_")   
+    await msg.sendReply("Utiliza el comando .pinterest para descargar el contenido de esta consulta.")   
     //}
 }));
 Module({
     pattern: 'tiktok ?(.*)',
     fromMe: sourav,
-    desc: 'tiktok downloader',
+    desc: 'descargador de tiktok',
     usage: '.tiktok reply or link',
     use: 'download'
 }, (async (msg, query) => {
@@ -218,7 +218,7 @@ Module({
         if (msg.list && msg.list.startsWith("igs") && msg.list.split(" ").includes(msg.myjid)){
             var username = msg.list.split(" ")[2];
             var count = parseInt(msg.list.split(" ")[3]);
-            try { var res = await story(username) } catch {return await msg.sendReply("*Sorry, server error*")}
+            try { var res = await story(username) } catch {return await msg.sendReply("*Lo sentimos, error del servidor*")}
             return await msg.sendReply({url: res[count].url},res[count].type)
         }
         if (msg.button && msg.button.startsWith("tktk") && msg.button.includes(msg.myjid)){
