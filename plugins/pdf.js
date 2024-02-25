@@ -18,7 +18,7 @@ Module({
         fs.mkdirSync(pdfPath)
     }
   if (match[1]?.toLowerCase() == 'help'){
-   await message.sendReply(`_1. Input images using .pdf_\n_2. Get output pdf using .pdf get_\n_3. Added images by mistake? then delete all inputted images using .pdf delete_\n_4. All files will be auto deleted after the output is produced_`)
+   await message.sendReply(`_1. Imágenes de entrada utilizando .pdf_\n_2. Obtenga el pdf de salida con .pdf get_\n_3. Si ha añadido imágenes por error, elimine todas las imágenes introducidas con .pdf delete_\n_4. Todos los archivos se eliminarán automáticamente después de la salida se produce_.`)
     }
   if (match[1]?.toLowerCase() == 'delete'){
     for (const file of await Fs.readdir(pdfPath)) {
@@ -44,9 +44,9 @@ Module({
     if (mime.includes('image')){
         const pages = (await fs.readdirSync(pdfPath)).filter(e=>e.includes('topdf'))    
         await fs.writeFileSync(pdfPath+'/topdf_'+pages.length+'.jpg',savedFile)
-        return await message.sendReply(`*_Successfully saved image_*\n_*Total saved images: ${pages.length+1}*_\n*_After saving all images, use '.pdf get' to get the result. Images will be deleted after conversion!_*`)
+        return await message.sendReply(`*Imagen guardada con éxito *\n_*Total de imágenes guardadas: ${pages.length+1}*_\n*Después de guardar todas las imágenes, utilice '.pdf get' para obtener el resultado. Las imágenes se borrarán después de la conversión.*`)
     } else {
-        return await message.sendReply('_Reply to any image!_')
+        return await message.sendReply('¡Responde a cualquier imagen!')
     }
-  } else return await message.sendReply('_Reply to any image, get helps by using ".pdf help" command_')
+  } else return await message.sendReply('Responde a cualquier imagen y obtén ayuda con el comando ".pdf help"')
 });
