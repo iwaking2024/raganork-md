@@ -141,12 +141,12 @@ acr.identify(file).then(result => {
     if (message.reply_message.video && files.length == 1) {
         var savedFile = await message.reply_message.download();
         await fs.writeFileSync('./temp/vmix/video1.mp4', fs.readFileSync(savedFile));
-        return await message.sendReply("*Added video 2. Type .vmix again to process!*")
+        return await message.sendReply("*Añadido vídeo 2. Vuelve a escribir .vmix para procesar*")
     }
     if (message.reply_message.video && files.length == 0) {
         var savedFile = await message.reply_message.download();
         await fs.writeFileSync('./temp/vmix/video2.mp4', fs.readFileSync(savedFile));
-        return await message.sendReply("*Added video 1*")
+        return await message.sendReply("*Vídeo añadido 1*")
     }
       async function merge(files, folder, filename)
 {
@@ -179,7 +179,7 @@ acr.identify(file).then(result => {
   Module({
       pattern: "slowmo",
       fromMe: fromMe,
-      desc: "Video to smooth slow motion",
+      desc: "Vídeo a cámara lenta",
       use: 'edit'
   }, async (message, match) => {
       if (!message.reply_message || !message.reply_message.video) return await message.sendReply("*Reply to a video*");
@@ -198,7 +198,7 @@ acr.identify(file).then(result => {
  Module({
       pattern: "circle",
       fromMe: fromMe,
-      desc: "Sticker/photo to circle crop",
+      desc: "Pegatina/foto para recortar en círculo",
       use: 'edit'
   }, async (message, match) => {
       await circle(message);
@@ -225,7 +225,7 @@ acr.identify(file).then(result => {
   Module({
       pattern: "interp ?(.*)",
       fromMe: fromMe,
-      desc: "Increases video's frame rate (FPS)",
+      desc: "Aumenta la frecuencia de imagen del vídeo (FPS)",
       use: 'edit'
   }, async (message, match) => {
       if (!message.reply_message || !message.reply_message.video) return await message.sendReply("*Reply to a video*");
@@ -244,15 +244,15 @@ acr.identify(file).then(result => {
 Module({
       pattern: "find ?(.*)",
       fromMe: fromMe,
-      desc: "Finds music name using AI",
+      desc: "Encuentra el nombre de la música mediante IA",
       usage: ".find reply to a music",
       use: 'search'
   }, async (message, match) => {
       if (!message.reply_message?.audio) return await message.sendReply("_Reply to a music_");
-      if (message.reply_message.duration > 60) return await message.send('_Audio too large! Use .trim command and cut the audio to < 60 secs_');
+      if (message.reply_message.duration > 60) return await message.send('_¡Audio demasiado grande! Utilice el comando .trim y corte el audio a < 60 secs_');
       var audio = await message.reply_message.download('buffer');
       var data = await findMusic(audio)
-      if (!data) return await message.sendReply("_No matching results found!_");
+      if (!data) return await message.sendReply("No se han encontrado resultados.");
 var buttons = [];
 function getDuration(millis) {
   var minutes = Math.floor(millis / 60000);
@@ -281,13 +281,13 @@ await message.client.sendMessage(message.jid, Message)
     var angle = "1"
     if (match[1] === "left") angle = "2" 
     if (match[1] === "flip") angle = "3" 
-    await message.send("_Processing..._")
+    await message.send("Procesando...")
     await message.sendReply(fs.readFileSync(await rotate(file,angle)),'video')
 });
   Module({pattern: "flip ?(.*)",fromMe: fromMe, desc:"Flips video"}, async (message, match) => {
     if (!message.reply_message || !message.reply_message.video) return await message.sendReply("*Reply to a video*");        
     var file = await message.reply_message.download();
     var angle = "3"
-    await message.send("_Processing..._")
+    await message.send("Procesando...")
     await message.sendReply(fs.readFileSync(await rotate(file,angle)),'video')
 });
